@@ -307,12 +307,12 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
 
     // Create connection client. Use DirectRTCClient if room name is an IP otherwise use the
     // standard WebSocketRTCClient.
-    if (loopback || !DirectRTCClient.IP_PATTERN.matcher(roomId).matches()) {
+    //if (loopback || !DirectRTCClient.IP_PATTERN.matcher(roomId).matches()) {
       appRtcClient = new WebSocketRTCClient(this);
-    } else {
-      Log.i(TAG, "Using DirectRTCClient because room name looks like an IP.");
-      appRtcClient = new DirectRTCClient(this);
-    }
+   // } else {
+   //   Log.i(TAG, "Using DirectRTCClient because room name looks like an IP.");
+   //   appRtcClient = new DirectRTCClient(this);
+  //  }
     // Create connection parameters.
     roomConnectionParameters = new RoomConnectionParameters(roomUri.toString(), roomId, loopback);
 
