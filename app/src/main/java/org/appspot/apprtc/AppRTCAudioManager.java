@@ -92,7 +92,7 @@ public class AppRTCAudioManager {
   // relative to the view screen of a device and can therefore be used to
   // assist device switching (close to ear <=> use headset earpiece if
   // available, far from ear <=> use speaker phone).
-  private AppRTCProximitySensor proximitySensor = null;
+  //private AppRTCProximitySensor proximitySensor = null;
 
   // Handles all tasks related to Bluetooth headset devices.
   private final AppRTCBluetoothManager bluetoothManager;
@@ -120,15 +120,15 @@ public class AppRTCAudioManager {
     // available audio devices.
     if (audioDevices.size() == 2 && audioDevices.contains(AudioDevice.EARPIECE)
         && audioDevices.contains(AudioDevice.SPEAKER_PHONE)) {
-      if (proximitySensor.sensorReportsNearState()) {
+     // if (proximitySensor.sensorReportsNearState()) {
         // Sensor reports that a "handset is being held up to a person's ear",
         // or "something is covering the light sensor".
-        setAudioDeviceInternal(AudioDevice.EARPIECE);
-      } else {
+        //setAudioDeviceInternal(AudioDevice.EARPIECE);
+    //  } else {
         // Sensor reports that a "handset is removed from a person's ear", or
         // "the light sensor is no longer covered".
         setAudioDeviceInternal(AudioDevice.SPEAKER_PHONE);
-      }
+      //}
     }
   }
 
@@ -181,14 +181,14 @@ public class AppRTCAudioManager {
     // Create and initialize the proximity sensor.
     // Tablet devices (e.g. Nexus 7) does not support proximity sensors.
     // Note that, the sensor will not be active until start() has been called.
-    proximitySensor = AppRTCProximitySensor.create(context, new Runnable() {
+    /*proximitySensor = AppRTCProximitySensor.create(context, new Runnable() {
       // This method will be called each time a state change is detected.
       // Example: user holds his hand over the device (closer than ~5 cm),
       // or removes his hand from the device.
       public void run() {
         onProximitySensorChangedState();
       }
-    });
+    });*/
 
     Log.d(TAG, "defaultAudioDevice: " + defaultAudioDevice);
     AppRTCUtils.logDeviceInfo(TAG);
@@ -314,11 +314,11 @@ public class AppRTCAudioManager {
     audioFocusChangeListener = null;
     Log.d(TAG, "Abandoned audio focus for VOICE_CALL streams");
 
-    if (proximitySensor != null) {
+    /*if (proximitySensor != null) {
       proximitySensor.stop();
       proximitySensor = null;
     }
-
+*/
     audioManagerEvents = null;
     Log.d(TAG, "AudioManager stopped");
   }

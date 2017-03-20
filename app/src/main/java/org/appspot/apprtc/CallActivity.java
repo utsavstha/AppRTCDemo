@@ -67,7 +67,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
   public static final String EXTRA_ROOMID = "org.appspot.apprtc.ROOMID";
   public static final String EXTRA_LOOPBACK = "org.appspot.apprtc.LOOPBACK";
   public static final String EXTRA_VIDEO_CALL = "org.appspot.apprtc.VIDEO_CALL";
-  public static final String EXTRA_SCREENCAPTURE = "org.appspot.apprtc.SCREENCAPTURE";
+  public static final String EXTRA_SCREENCAPTURE = "org.appspot.apprtc.SCREENCAPTUR";
   public static final String EXTRA_CAMERA2 = "org.appspot.apprtc.CAMERA2";
   public static final String EXTRA_VIDEO_WIDTH = "org.appspot.apprtc.VIDEO_WIDTH";
   public static final String EXTRA_VIDEO_HEIGHT = "org.appspot.apprtc.VIDEO_HEIGHT";
@@ -143,7 +143,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
   private SurfaceViewRenderer remoteRenderScreen;
   private VideoFileRenderer videoFileRenderer;
   private final List<VideoRenderer.Callbacks> remoteRenderers =
-      new ArrayList<VideoRenderer.Callbacks>();
+      new ArrayList<>();
   private PercentFrameLayout localRenderLayout;
   private PercentFrameLayout remoteRenderLayout;
   private ScalingType scalingType;
@@ -164,8 +164,8 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
 
   // Controls
   private CallFragment callFragment;
-  private HudFragment hudFragment;
-  private CpuMonitor cpuMonitor;
+  //private HudFragment hudFragment;
+ //private CpuMonitor cpuMonitor;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -192,7 +192,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
     localRenderLayout = (PercentFrameLayout) findViewById(R.id.local_video_layout);
     remoteRenderLayout = (PercentFrameLayout) findViewById(R.id.remote_video_layout);
     callFragment = new CallFragment();
-    hudFragment = new HudFragment();
+    //hudFragment = new HudFragment();
 
     // Show/hide call control fragment on view click.
     View.OnClickListener listener = new View.OnClickListener() {
@@ -317,16 +317,16 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
     roomConnectionParameters = new RoomConnectionParameters(roomUri.toString(), roomId, loopback);
 
     // Create CPU monitor
-    cpuMonitor = new CpuMonitor(this);
-    hudFragment.setCpuMonitor(cpuMonitor);
+    //cpuMonitor = new CpuMonitor(this);
+    //hudFragment.setCpuMonitor(cpuMonitor);
 
     // Send intent arguments to fragments.
     callFragment.setArguments(intent.getExtras());
-    hudFragment.setArguments(intent.getExtras());
+   // hudFragment.setArguments(intent.getExtras());
     // Activate call and HUD fragments and start the call.
     FragmentTransaction ft = getFragmentManager().beginTransaction();
     ft.add(R.id.call_fragment_container, callFragment);
-    ft.add(R.id.hud_fragment_container, hudFragment);
+   // ft.add(R.id.hud_fragment_container, hudFragment);
     ft.commit();
 
     // For command line execution run connection for <runTimeMs> and exit.
@@ -418,7 +418,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
     if (peerConnectionClient != null && !screencaptureEnabled) {
       peerConnectionClient.stopVideoSource();
     }
-    cpuMonitor.pause();
+    //cpuMonitor.pause();
   }
 
   @Override
@@ -429,7 +429,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
     if (peerConnectionClient != null && !screencaptureEnabled) {
       peerConnectionClient.startVideoSource();
     }
-    cpuMonitor.resume();
+    //cpuMonitor.resume();
   }
 
   @Override
@@ -488,10 +488,10 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
     FragmentTransaction ft = getFragmentManager().beginTransaction();
     if (callControlFragmentVisible) {
       ft.show(callFragment);
-      ft.show(hudFragment);
+     // ft.show(hudFragment);
     } else {
       ft.hide(callFragment);
-      ft.hide(hudFragment);
+      //ft.hide(hudFragment);
     }
     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     ft.commit();
@@ -511,7 +511,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
           LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING, LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING);
       localRender.setScalingType(scalingType);
     }
-    localRender.setMirror(true);
+    localRender.setMirror(false);
 
     localRender.requestLayout();
     remoteRenderScreen.requestLayout();
@@ -885,7 +885,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
       @Override
       public void run() {
         if (!isError && iceConnected) {
-          hudFragment.updateEncoderStatistics(reports);
+          //hudFragment.updateEncoderStatistics(reports);
         }
       }
     });
